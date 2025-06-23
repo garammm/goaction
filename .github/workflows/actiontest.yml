@@ -22,17 +22,10 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: build and release to DockerHub
         env:
-          NAME: garamyu
-          REPO: actiontest
-        run:
-          docker build -t $NAME/$REPO:latest .
-      - name: tagging
-        env:
           NAME: garammm
           REPO: actiontest
         run:
-          docker tag $REPO:latest $NAME/$REPO:latest
-
+          docker build -t $NAME/$REPO:latest .
       - name: Release To Dockerhub
         env:
           NAME: garammm
