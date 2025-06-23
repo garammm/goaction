@@ -20,13 +20,18 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      - name: Build Docker images
+      - name: build and release to DockerHub
+        env:
+          REPO: actiontest
+        run:
+          docker build -t $REPO .
+      - name: tagging
         env:
           NAME: garammm
           REPO: actiontest
         run:
-          docker build -t $NAME/$REPO:latest
+          docker tag $REPOlatest $NAME/$REPO:latest
+
       - name: Release To Dockerhub
         env:
           NAME: garammm
