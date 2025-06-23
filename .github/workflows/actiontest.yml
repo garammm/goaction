@@ -22,6 +22,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: build and release to DockerHub
         env:
+          NAME: garamyu
           REPO: actiontest
         run:
           docker build -t $NAME/$REPO:latest .
