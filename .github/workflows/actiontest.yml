@@ -24,13 +24,13 @@ jobs:
         env:
           REPO: actiontest
         run:
-          docker build -t $REPO .
+          docker build -t $NAME/$REPO:latest .
       - name: tagging
         env:
           NAME: garammm
           REPO: actiontest
         run:
-          docker tag $REPOlatest $NAME/$REPO:latest
+          docker tag $REPO:latest $NAME/$REPO:latest
 
       - name: Release To Dockerhub
         env:

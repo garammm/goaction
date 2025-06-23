@@ -1,7 +1,9 @@
 version: "3"
 services:
-  apa000ex2:
-    image: httpd
+  mariadb:
+    image: mariadb:10.4.6
+    environment:
+      - MYSQL_ROOT_PASSWORD=wnddkd
     ports:
-      - 8081:80
+      - 3306:3306
     restart: always

@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  mydb:
+    image: mysql:8.0
+    container_name: mysql_app
+    volumes:
+      - mydb_data:/var/lib/mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    networks:
+      -backend-net
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: garam
+      MYSQL_USER: garam
+      MYSQL_PASSWORD: 12345
+    myweb:
+      depends_on:
+        - mydb
+      image: wordpress:5.7
+      container_name: wordpress_app
+      ports:
+        - "8888:80"
+    networks:
+      - backend-net
+      - frontend-net
+    volumes:
+      - myweb_data:/var/www/html/
+      - ${PWD}/myweb-log:/var/log
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: mydb:3306
+      WORDPRESS_DB_USER: garam
+      WORDPRESS_DB_PASSWORD: 12345
+      WORDPRESS_DB_NAME: garam
+    networks:
+      frontend-net: {}
+      backend-net: {}
+    volumes:
+      mydb_data: {}
+      myweb_data: {}
+
